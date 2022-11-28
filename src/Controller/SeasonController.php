@@ -54,9 +54,15 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{id<\d+>}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Season $season, SeasonRepository $seasonRepository): Response
     {
+        if (!$season) {
+            throw $this->createNotFoundException(
+                'No season found.'
+            );
+        }
+
         $form = $this->createForm(SeasonType::class, $season);
         $form->handleRequest($request);
 
@@ -72,9 +78,15 @@ class SeasonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('/{id<\d+>}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Season $season, SeasonRepository $seasonRepository): Response
     {
+        if (!$season) {
+            throw $this->createNotFoundException(
+                'No season found.'
+            );
+        }
+        
         if ($this->isCsrfTokenValid('delete'.$season->getId(), $request->request->get('_token'))) {
             $seasonRepository->remove($season, true);
         }
