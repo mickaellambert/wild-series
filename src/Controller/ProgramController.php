@@ -34,7 +34,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         // Was the form submitted ?
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $programRepository->save($program, true);
             return $this->redirectToRoute('program_index');
         }
