@@ -16,7 +16,11 @@
         Aucune série trouvée.
     {% endfor %}
 
-    <a href="{{ path('home') }}">
+    <a class="btn btn-secondary" href="{{ path("program_new") }}" role="button">
+        Ajouter une série
+    </a>
+
+    <a class="btn btn-secondary" href="{{ path("home") }}" role="button">
         Retour à l'accueil
     </a>
 {% endblock %}
