@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Season{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-center mt-3">
+        <div class="form">
+            <h1>Ajouter une saison</h1>
+            {{ include('season/_form.html.twig') }}
+        </div>
+    </div>
+    <a class="btn btn-secondary" href="{{ path('season_index') }}">Retour</a>
+{% endblock %}

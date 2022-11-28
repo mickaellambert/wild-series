@@ -1,7 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SeasonController!{% endblock %}
+{% block title %}Liste des saisons{% endblock %}
 
-{% block body %}
-    Mes saisons
+{% block body %}    
+    <a class="btn btn-secondary mt-3 mb-3" href="{{ path('season_new') }}">Ajouter une série</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Number</th>
+                <th>Year</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for season in seasons %}
+            <tr>
+                <td>{{ season.id }}</td>
+                <td>{{ season.number }}</td>
+                <td>{{ season.year }}</td>
+                <td>{{ season.description }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{{ path('season_show', {'id': season.id}) }}">Voir</a>
+                    <a class="btn btn-secondary mt-2" href="{{ path('season_edit', {'id': season.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
