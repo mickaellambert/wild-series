@@ -14,6 +14,8 @@
         {% endblock %}
     </head>
     <body>
+        {% set route_name = app.request.attributes.get('_route') %}
+
         <header>
             {% block header %}
                 {% include 'partials/_navbar.html.twig' %}

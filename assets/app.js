@@ -8,5 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
-// start the Stimulus application
+// start the Stimulus application (not boostrap CSS library)
 import './bootstrap';
+
+// import boostrap library
+import 'bootstrap';
