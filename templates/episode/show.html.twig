@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <a href="{{ path('program_index') }}">
-        Retour à la liste des programmes
+    <a href="{{ path('season_show', { id: episode.season.id }) }}">
+        Retour
     </a>
 {% endblock %}
