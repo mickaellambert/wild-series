@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Season;
 use App\Repository\SeasonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +18,11 @@ class SeasonController extends AbstractController
     }
 
     #[Route('/{id<\d+>}', methods: ['GET'], name: 'show')]
-    public function show(int $id, SeasonRepository $seasonRepository): Response
+    public function show(Season $season): Response
     {
-        $season = $seasonRepository->find($id);
-
         if (!$season) {
             throw $this->createNotFoundException(
-                'No season with id : ' . $id . ' found.'
+                'No season found.'
             );
         }
 

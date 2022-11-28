@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
+use App\Entity\Category;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,13 +24,11 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id<\d+>}', methods: ['GET'], name: 'show')]
-    public function show(int $id, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
-    {
-        $category = $categoryRepository->find($id);
-        
+    public function show(Category $category, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
+    {        
         if (!$category) {
             throw $this->createNotFoundException(
-                'No category with id : ' . $id . ' found in program\'s table.'
+                'No category found.'
             );
         }
 

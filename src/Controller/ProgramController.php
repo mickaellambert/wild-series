@@ -2,6 +2,7 @@
 // src/Controller/ProgramController.php
 namespace App\Controller;
 
+use App\Entity\Program;
 use App\Repository\ProgramRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +22,11 @@ class ProgramController extends AbstractController
     }
     
     #[Route('/{id<\d+>}', methods: ['GET'], name: 'show')]
-    public function show(int $id, ProgramRepository $programRepository): Response
+    public function show(Program $program, ProgramRepository $programRepository): Response
     {
-        $program = $programRepository->find($id);
-
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with id : ' . $id . ' found in program\'s table.'
+                'No program found.'
             );
         }
 

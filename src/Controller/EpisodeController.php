@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Episode;
 use App\Repository\EpisodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +18,11 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/{id<\d+>}', methods: ['GET'], name: 'show')]
-    public function show(int $id, EpisodeRepository $episodeRepository): Response
+    public function show(Episode $episode, EpisodeRepository $episodeRepository): Response
     {
-        $episode = $episodeRepository->find($id);
-
         if (!$episode) {
             throw $this->createNotFoundException(
-                'No episode with id : ' . $id . ' found.'
+                'No episode found.'
             );
         }
 
