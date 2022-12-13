@@ -62,4 +62,20 @@ class ProgramController extends AbstractController
             'seasons' => $program->getSeasons()
          ]);
     }
+
+    #[Route('/{id<\d+>}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Program $program, ProgramRepository $programRepository): Response
+    {
+        if (!$program) {
+            throw $this->createNotFoundException(
+                'No program found.'
+            );
+        }
+        
+        if ($this->isCsrfTokenValid('delete' . $program->getId(), $request->request->get('_token'))) {
+            $programRepository->remove($program, true);
+        }
+
+        return $this->redirectToRoute('program_index', [], Response::HTTP_SEE_OTHER);
+    }
 }
