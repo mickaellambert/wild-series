@@ -23,6 +23,16 @@
                 <th>Description</th>
                 <td>{{ season.description }}</td>
             </tr>
+            <tr>
+                <th>Episodes</th>
+                <td>
+                    {% for episode in season.episodes %}
+                        <li><a href="{{ path('episode_show', {'slug': episode.slug}) }}">{{ episode.title }}</a></li>
+                    {% else %}
+                        <li>Aucun acteur pour cette série</li>
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

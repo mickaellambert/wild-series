@@ -40,7 +40,7 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id<\d+>}', name: 'show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {
         if (!$episode) {
@@ -54,7 +54,7 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id<\d+>}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Episode $episode, EpisodeRepository $episodeRepository): Response
     {
         if (!$episode) {
