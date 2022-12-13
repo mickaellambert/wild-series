@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 #[ORM\Entity(repositoryClass: ProgramRepository::class)]
+#[UniqueEntity('title')]
 class Program
 {
     #[ORM\Id]
@@ -18,7 +19,7 @@ class Program
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
     #[Assert\Length(
         max: 255,
@@ -53,14 +54,6 @@ class Program
     {
         $this->seasons = new ArrayCollection();
         $this->actors = new ArrayCollection();
-    }
-
-    public static function loadValidatorMetadata(ClassMetadata $metadata)
-    {
-        $metadata->addConstraint(new UniqueEntity([
-            'fields'  => 'title',
-            'message' => 'Ce titre existe déjà.',
-        ]));
     }
     
     public function getId(): ?int

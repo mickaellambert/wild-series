@@ -15,35 +15,40 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             'synopsis' => 'Des zombies envahissent la terre',
             'category' => 'Action',
             'country'  => 'USA',
-            'year'     => '2010'
+            'year'     => '2010',
+            'poster'   => 'https://static.posters.cz/image/1300/affiches-et-posters/the-walking-dead-city-i15032.jpg'
         ],
         [
             'title'    => 'Game of Thrones',
             'synopsis' => 'Du sang, du sexe et du suspense',
             'category' => 'Fantastique',
             'country'  => 'USA',
-            'year'     => '2011'
+            'year'     => '2011',
+            'poster'   => 'https://m.media-amazon.com/images/I/71pH7+c6YyL.jpg'
         ],
         [
             'title'    => 'One Punch Man',
             'synopsis' => 'Chauve, il explose tout le monde',
             'category' => 'Animation',
             'country'  => 'Japan',
-            'year'     => '2016'
+            'year'     => '2016',
+            'poster'   => 'https://static.posters.cz/image/750/affiches-et-posters/one-punch-man-collage-i33906.jpg'
         ],
         [
             'title'    => 'Handmade\'s Tail',
             'synopsis' => 'Ne mangez pas devant.',
             'category' => 'Aventure',
             'country'  => 'USA',
-            'year'     => '2014'
+            'year'     => '2014',
+            'poster'   => 'https://m.media-amazon.com/images/I/71HPGsdOBOL._AC_SY606_.jpg'
         ],
         [
             'title'    => 'Le Seigneur des Anneaux - Les Anneaux de Pouvoir',
             'synopsis' => 'On veut des thunes, mais c\'est joli !',
             'category' => 'Aventure',
             'country'  => 'USA',
-            'year'     => '2022'
+            'year'     => '2022',
+            'poster'   => 'https://pbs.twimg.com/media/Fd_9QhtakAEBpOk?format=jpg&name=small'
         ]
     ];
 
@@ -56,6 +61,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setCategory($this->getReference('category_' . $programArray['category']));
             $program->setCountry($programArray['country']);
             $program->setYear($programArray['year']);
+            $program->setPoster($programArray['poster']);
             $manager->persist($program);
 
             $this->addReference('program_' . $key, $program);

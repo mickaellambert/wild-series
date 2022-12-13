@@ -16,6 +16,14 @@
     <body>
         {% set route_name = app.request.attributes.get('_route') %}
 
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
         <header>
             {% block header %}
                 {% include 'partials/_navbar.html.twig' %}

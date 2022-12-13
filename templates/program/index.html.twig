@@ -3,18 +3,22 @@
 {% block title %}Liste des séries{% endblock %}
 
 {% block body %}
-    <h1>Toutes les séries : </h1>
-    {% for program in programs %}
-        <div class="card border-info mb-3" style="max-width: 20rem;">
-            <div class="card-header">{{ loop.index }} / {{ program.title }} - Catégorie : {{ program.category.name }}</div>
-            <div class="card-body">
-                <p class="card-text">{{ program.synopsis }}</p>
-                <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+    <div class="container mt-5">
+        <div class="row">
+        {% for program in programs %}
+            <div class="card col-4">
+                <img height="500" src="{{ program.poster }}" class="card-img-top" alt="Affiche de la série {{ program.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ program.title }}</h5>
+                    <p class="card-text">{{ program.synopsis }}</p>
+                    <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">Voir la fiche</a>
+                </div>
             </div>
+        {% else %}
+            Aucune série trouvée.
+        {% endfor %}
         </div>
-    {% else %}
-        Aucune série trouvée.
-    {% endfor %}
+    </div>
 
     <a class="btn btn-secondary" href="{{ path("program_new") }}" role="button">
         Ajouter une série

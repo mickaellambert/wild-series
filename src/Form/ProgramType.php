@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProgramType extends AbstractType
 {
@@ -31,8 +32,7 @@ class ProgramType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
-            ->add('poster', FileType::class, [
-                'required' => false,
+            ->add('poster', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                 ],
