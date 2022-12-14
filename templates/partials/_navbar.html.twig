@@ -16,5 +16,12 @@
                 </li>
             </ul>
         </div>
+
+        {% if app.user %}
+            {{ app.user.email }}
+            <a class="btn btn-primary" href="{{ path('logout') }}">Se déconnecter</a>
+        {% else %}
+            <a class="btn btn-primary" href="{{ path('login') }}">Se connecter</a>
+        {% endif %}
     </div>
 </nav>

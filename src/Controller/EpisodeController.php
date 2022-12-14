@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Episode;
+use App\Form\CommentType;
 use App\Form\EpisodeType;
+use App\Repository\CommentRepository;
 use App\Repository\EpisodeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,8 +43,8 @@ class EpisodeController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'show', methods: ['GET'])]
-    public function show(Episode $episode): Response
+    #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
+    public function show(Episode $episode, Request $request, CommentRepository $commentRepository): Response
     {
         if (!$episode) {
             throw $this->createNotFoundException(
@@ -49,8 +52,26 @@ class EpisodeController extends AbstractController
             );
         }
 
-        return $this->render('episode/show.html.twig', [
-            'episode' => $episode,
+        $user = $this->getUser();
+        $form = null;
+
+        if ($user !== null) {
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $comment->setAuthor($user);
+                $comment->setEpisode($episode);
+                $commentRepository->save($comment, true);
+    
+                return $this->redirectToRoute('episode_show', ['slug' => $episode->getSlug()], Response::HTTP_SEE_OTHER);
+            }
+        }
+
+        return $this->renderForm('episode/show.html.twig', [
+            'episode'  => $episode,
+            'form'     => $form 
         ]);
     }
 
