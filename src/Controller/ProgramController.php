@@ -13,6 +13,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -44,6 +45,7 @@ class ProgramController extends AbstractController
         // Was the form submitted ?
         if ($form->isSubmitted() && $form->isValid()) {
             $program->setSlug($slugger->slug($program->getTitle())->lower());
+            $program->setOwner($this->getUser());
             $programRepository->save($program, true);
 
             $this->addFlash('success', 'The new program has been created');
@@ -68,6 +70,10 @@ class ProgramController extends AbstractController
     #[Route('/{slug}', methods: ['GET'], name: 'show')]
     public function show(Program $program, ProgramRepository $programRepository, ProgramDuration $programDuration): Response
     {
+        if ($this->getUser() !== $program->getOwner()) {
+            throw $this->createAccessDeniedException('Only the owner can show the program!');
+        }
+        
         if (!$program) {
             throw $this->createNotFoundException(
                 'No program found.'

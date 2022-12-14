@@ -72,6 +72,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             $program->setYear($programArray['year']);
             $program->setPoster($programArray['poster']);
             $program->setSlug($this->slugger->slug($programArray['title'])->lower());
+            $program->setOwner($this->getReference('user_contributor'));
             $manager->persist($program);
 
             $this->addReference('program_' . $key, $program);
