@@ -1,0 +1,7 @@
+{% extends 'email_base.html.twig' %}
+
+{% block body %}
+    <h1>Program {{ program.title }} deleted</h1>
+    <p>Hello, the program {{ program.title }} has been deleted on Wild Series</p>
+    <p>Synopsis : {{program.synopsis }}</p>
+{% endblock %}
