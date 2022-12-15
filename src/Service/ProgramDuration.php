@@ -5,7 +5,7 @@ use App\Entity\Program;
 
 class ProgramDuration
 {
-    public function calculate(Program $program): string
+    public function calculate(Program $program): array
     {
         $minutes = 0;
 
@@ -21,6 +21,6 @@ class ProgramDuration
         $h = $hours - ($days * 24);
         $min = $minutes - ($hours * 60);
 
-        return $days . ' jour(s) ' . $h . ' heures et ' . $min . ' minutes';
+        return [$days, $h, $min];
     }
 }
